@@ -1,20 +1,15 @@
 import React from 'react';
 
-const LANGUAGES = [
-  'Java',
-  'PHP',
-  'Ruby',
-  'JavaScript',
-  'Python'
-];
+
 
 export class List extends React.Component  {
   render() {
+    const { langs } = this.props;
   return (
     <div>
       <h4>リストです。</h4>
       {
-        LANGUAGES.map((lang, index) => {
+        langs.map((lang, index) => {
           return <div key={index}>{ lang }</div>
         })
       }
