@@ -3,6 +3,8 @@ import { useState, useEffect } from "react";
 import { List } from "./List";
 import { Form } from "./Form";
 import { getLanguages } from "./Comp/languages";
+import { withLoading } from "./hoc/withLoading";
+import { Modal } from './components/modal';
 
 
 
@@ -28,18 +30,9 @@ const HeaderLi = styled.li`
 
 
 
-function App() {
+function App({ data }) {
   const [tab, setTab] = useState('list')
-  const [langs, setLangs] = useState([])
-
-  useEffect(() => {
-    fetchLanguages();
-  }, [])
-
-  const fetchLanguages = async () => {
-    const languages = await getLanguages();
-    setLangs(languages);
-  }
+  const [langs, setLangs] = useState(data)
 
 
   const addLang = (lang) => {
@@ -58,9 +51,10 @@ function App() {
       {
         tab === 'list' ? <List langs={langs} />  :  <Form onAddLang={addLang}/>
       }
+      <Modal />
     </div>
   );
 }
 
 
-export default App;
+export default withLoading(App, getLanguages);
